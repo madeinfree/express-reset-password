@@ -1,7 +1,7 @@
 {
   "name": "express-reset-password",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "build/index.js",
   "license": "MIT",
   "scripts": {
     "clear": "rm -rf build",
