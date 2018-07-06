@@ -175,14 +175,6 @@ events@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
-express-reset-password@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/express-reset-password/-/express-reset-password-0.0.2.tgz#ff7f4d1eb0d9637b5986566146a96546bce79657"
-  dependencies:
-    aws-sdk "^2.269.1"
-    express "^4.16.3"
-    redis "^2.8.0"
-
 express@^4.16.3:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
