@@ -48,6 +48,35 @@ app.listen(8080, () => console.log('Server run on port 8080'));
 
 - EMAIL_RESETPASSWORD_EXPIREDTIME default (300sec)
 
+## Reset callback data
+
+From `next()` callback, the reset payload will merge into req.body object.
+
+### Successed
+
+```javascript
+// req.body
+{
+  token: 'c1a6b06ec9ebf5b43039b0322748f422a8dce40bbd26c629f6bd294ce3fd4aa8',
+  success: true,
+  resetPayload: {
+    email: 'sal95610@gmail.com',
+    token: 'c1a6b06ec9ebf5b43039b0322748f422a8dce40bbd26c629f6bd294ce3fd4aa8'
+  }
+};
+```
+
+### Failed
+
+```javascript
+// req.body
+{
+  token: 'notreall',
+  success: false,
+  resetPayload: {}
+};
+```
+
 ## Q&A
 
 - resetPassword middleware request body ?
