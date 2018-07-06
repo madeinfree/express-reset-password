@@ -1,7 +1,5 @@
 import { RequestHandler, Request } from 'express';
-import RedisClient from './redis';
-
-const redisClient = RedisClient.createRedisClient({});
+import { redisClient } from './redis';
 
 const REQUEST_ERROR_MESSAGE: string = `
 Can't find any request body, you should try 'npm install body-parser' in your middleware.
@@ -19,7 +17,11 @@ const hasRequestBody: Function = (request: Request): boolean | object => {
   return request.body;
 };
 
-const resetPasswordToken: RequestHandler = (req, res, next) => {
+const resetPasswordToken = (redisClient: redisClient): RequestHandler => (
+  req,
+  res,
+  next
+) => {
   if (!hasRequestBody(req)) {
     throwError(REQUEST_ERROR_MESSAGE);
   }

@@ -1,5 +1,8 @@
 import reset from './modules/reset';
 import token from './modules/resetPasswordToken';
+import RedisClient from './modules/redis';
+
+const redisClient = RedisClient.createRedisClient({});
 
 const checkEnvFirst = () => {
   const {
@@ -48,4 +51,7 @@ the default token expired is '300' sec
 
 checkEnvFirst();
 
-export default { resetPassword: reset, resetPasswordToken: token };
+export default {
+  resetPassword: reset(redisClient),
+  resetPasswordToken: token(redisClient)
+};

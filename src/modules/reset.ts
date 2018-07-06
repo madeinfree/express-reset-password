@@ -1,8 +1,6 @@
 import { RequestHandler, Request } from 'express';
-import RedisClient from './redis';
+import { redisClient } from './redis';
 import SESClient from './aws-ses';
-
-const redisClient = RedisClient.createRedisClient({});
 
 const SESRegion = process.env.AWS_SES_REGION || 'us-west-2';
 const sesClient = SESClient.createSESClient({
@@ -72,7 +70,10 @@ const hasRequestBody: Function = (request: Request): boolean | object => {
   return request.body;
 };
 
-const reset: RequestHandler = async (req, res) => {
+const reset = (redisClient: redisClient): RequestHandler => async (
+  req,
+  res
+) => {
   if (!hasRequestBody(req)) {
     throwError(REQUEST_ERROR_MESSAGE);
   }
