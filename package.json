@@ -1,0 +1,22 @@
+{
+  "name": "express-reset-password",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clear": "rm -rf build",
+    "build": "yarn run clear && tsc"
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "aws-sdk": "^2.269.1",
+    "express": "^4.16.3",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/redis": "^2.8.6"
+  }
+}
