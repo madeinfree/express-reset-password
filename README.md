@@ -35,3 +35,59 @@ app.get('/reset-password', (req, res) => {
 
 app.listen(8080, () => console.log('Server run on port 8080'));
 ```
+
+## Environment
+
+- REDIS_HOST - default (redis://localhost:6379)
+
+- AWS_SES_REGION - default (us-west-2)
+
+- EMAIL_RESETPASSWORD_HOST default (http://localhost:8080/reset-password)
+
+- EMAIL_RESETPASSWORD_SENDER (required)
+
+- EMAIL_RESETPASSWORD_EXPIREDTIME default (300sec)
+
+## Q&A
+
+- resetPassword middleware request body ?
+
+You should use express middleware `body-parser` to parse your request into `req.body`, and your server just receive the `email` only.
+
+```javascript
+(req, res) => {
+  const { email } = req.body;
+};
+```
+
+Error Handle: If your undefined or null, you can receive the `The email shouldn't be empty.` response.
+
+- resetPasswordToken middleware request body ?
+
+You should use express middleware `body-parser` to parse your request into `req.body`, and your server just receive the `email` only.
+
+```javascript
+(req, res) => {
+  const { token } = req.body;
+};
+```
+
+- how to set AWS credentials ?
+
+See the aws credentials setting document.
+
+always in `~/.aws/credentials`
+
+```
+[default]
+aws_access_key_id = your_key_id
+aws_secret_access_key = your_access_key
+```
+
+- how to connection redis ?
+
+When you use local or test env, you can just use default host `redis:localhost:6379`, or you can set your own redis host enviroment.
+
+- how to set my express router ?
+
+The `express-reset-password` like the middleware, so you can set your own express router.
