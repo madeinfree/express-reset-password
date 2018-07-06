@@ -120,3 +120,7 @@ When you use local or test env, you can just use default host `redis:localhost:6
 - how to set my express router ?
 
 The `express-reset-password` like the middleware, so you can set your own express router.
+
+# License
+
+MIT
