@@ -6,6 +6,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "express-reset-password": "^0.0.2"
+    "express-reset-password": "^0.0.3"
   }
 }
