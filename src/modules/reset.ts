@@ -1,5 +1,6 @@
 import { RequestHandler, Request } from 'express';
 import { redisClient } from './redis';
+import { EventEmitter } from './pubSub';
 import SESClient from './aws-ses';
 
 const SESRegion = process.env.AWS_SES_REGION || 'us-west-2';
@@ -70,10 +71,10 @@ const hasRequestBody: Function = (request: Request): boolean | object => {
   return request.body;
 };
 
-const reset = (redisClient: redisClient): RequestHandler => async (
-  req,
-  res
-) => {
+const reset = (
+  redisClient: redisClient,
+  redisPubSub: EventEmitter
+): RequestHandler => async (req, res) => {
   if (!hasRequestBody(req)) {
     throwError(REQUEST_ERROR_MESSAGE);
   }
