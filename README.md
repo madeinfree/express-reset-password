@@ -56,6 +56,35 @@ AWS ENVIRONMENT
 
 - AWS_ACCESS_KEY_ID
 
+## Custom Email Template
+
+### Default email template
+
+```javascript
+`
+Hello, <br />
+This is your password reset url, please click to open it. <br />
+<a href='${host}?token=${token}'>${host}?token=${token}</a> <br />
+* Don't send this mail for other people.
+`;
+```
+
+### Custom email template
+
+The module can let you send your own email template, use Inject to change it.
+use HTML to design the custom email template.
+
+```javascript
+const { inject } = require('express-reset-password').default;
+inject.emailTemplate = (token, host) => `
+Hi, <br />
+This is a custom email template <br />
+you can reset your email from link <br />
+${host}?token=${token} <br />
+Don't share this email for any one. <br />
+`;
+```
+
 ## Reset callback data
 
 From `next()` callback, the reset payload will merge into req.body object.
