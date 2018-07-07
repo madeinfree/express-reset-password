@@ -48,6 +48,14 @@ app.listen(8080, () => console.log('Server run on port 8080'));
 
 - EMAIL_RESETPASSWORD_EXPIREDTIME default (300sec)
 
+### [Options Environment]
+
+AWS ENVIRONMENT
+
+- AWS_SECRET_ACCESS_KEY
+
+- AWS_ACCESS_KEY_ID
+
 ## Reset callback data
 
 From `next()` callback, the reset payload will merge into req.body object.
