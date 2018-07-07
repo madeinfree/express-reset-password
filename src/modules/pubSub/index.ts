@@ -16,6 +16,14 @@ const createRedisPubSub = (redisClient: redisClient) => {
   return redisPubSub;
 };
 
+const createSESPubSub = () => {
+  const SESPubSub = new PubSubEvent();
+  SESPubSub.on('send', () => {
+    console.log('Send the mailer');
+  });
+};
+
 export default {
-  createRedisPubSub
+  createRedisPubSub,
+  createSESPubSub
 };

@@ -4,9 +4,18 @@ import { EventEmitter } from './pubSub';
 import SESClient from './aws-ses';
 
 const SESRegion = process.env.AWS_SES_REGION || 'us-west-2';
+let SESCredentialOptions = {};
+// Use AWS standard AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID
+if (process.env.AWS_SECRET_ACCESS_KEY && process.env.AWS_ACCESS_KEY_ID) {
+  SESCredentialOptions = Object.assign({}, SESCredentialOptions, {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  });
+}
 const sesClient = SESClient.createSESClient({
   apiVersion: '2010-12-01',
-  region: SESRegion
+  region: SESRegion,
+  ...SESCredentialOptions
 });
 
 const REQUEST_ERROR_MESSAGE: string = `
@@ -100,12 +109,22 @@ const reset = (
   const expiredTime: number = parseInt(processEnvExpiredTime, 10);
   redisClient.set(`PASSWORD:RESET:${flash_token}`, item, 'EX', expiredTime);
   const params = create_email_params(email, email_sender, email_template);
-  sendEmailFromSES(params).then(data => {
-    res.status(200).send({
-      success: true,
-      payload: data
+  sendEmailFromSES(params)
+    .then(data => {
+      res.status(200).send({
+        success: true,
+        payload: data
+      });
+    })
+    .catch((err: AWS.AWSError) => {
+      res.status(err.statusCode).send({
+        success: false,
+        error: {
+          message: err.message,
+          code: err.code
+        }
+      });
     });
-  });
 };
 
 export default reset;
