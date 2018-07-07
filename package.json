@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "clear": "rm -rf build",
-    "build": "yarn run clear && tsc"
+    "build": "yarn run clear && tsc",
+    "dev": "tsc --watch"
   },
   "files": [
     "build"
