@@ -29,7 +29,7 @@ app.use(bodyParser());
 const SIMPLE_EMAIL_TEMPLATE = (token: string, host: string): string => `
 Hello, <br />
 This is your password reset url, please click to open it. <br />
-<a href='${host}?token=${token}'>${host}/?token=${token}</a> <br />
+<a href='${host}?token=${token}'>${host}?token=${token}</a> <br />
 * Don't send this mail for other people.
 `;
 
@@ -82,7 +82,8 @@ const hasRequestBody: Function = (request: Request): boolean | object => {
 
 const reset = (
   redisClient: redisClient,
-  redisPubSub: EventEmitter
+  redisPubSub: EventEmitter,
+  inject: { emailTemplate: Function | null }
 ): RequestHandler => async (req, res) => {
   if (!hasRequestBody(req)) {
     throwError(REQUEST_ERROR_MESSAGE);
@@ -98,7 +99,12 @@ const reset = (
   const host =
     process.env.EMAIL_RESETPASSWORD_HOST ||
     `http://localhost:8080/reset-password`;
-  const email_template = SIMPLE_EMAIL_TEMPLATE(flash_token, host);
+  let email_template;
+  if (inject.emailTemplate) {
+    email_template = inject.emailTemplate(flash_token, host);
+  } else {
+    email_template = SIMPLE_EMAIL_TEMPLATE(flash_token, host);
+  }
   const email_sender = process.env.EMAIL_RESETPASSWORD_SENDER;
   const item = JSON.stringify({
     email: email,

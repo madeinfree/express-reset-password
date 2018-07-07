@@ -53,7 +53,12 @@ the default token expired is '300' sec
 
 checkEnvFirst();
 
+let inject = {
+  emailTemplate: null
+};
+
 export default {
-  resetPassword: reset(redisClient, redisPubSub),
+  inject,
+  resetPassword: reset(redisClient, redisPubSub, inject),
   resetPasswordToken: token(redisClient, redisPubSub)
 };
