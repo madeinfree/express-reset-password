@@ -1,9 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {
-  resetPassword,
-  resetPasswordToken
-} = require('express-reset-password').default;
+const { resetPassword, resetPasswordToken } = require('../build').default;
 const app = express();
 
 const resetCallback = (req, res) => {
