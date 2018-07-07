@@ -1,7 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { resetPassword, resetPasswordToken } = require('../build').default;
+const {
+  resetPassword,
+  resetPasswordToken,
+  inject
+} = require('../build').default;
+
 const app = express();
+
+// custom email template example
+inject.emailTemplate = (token, host) => `
+Hi, <br />
+This is a custom email template <br />
+you can reset your email from link <br />
+${host}?token=${token} <br />
+Don't share this email for any one. <br />
+`;
 
 const resetCallback = (req, res) => {
   const body = req.body;
